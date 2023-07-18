@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Poppins:wght@200&family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #EAEAEA;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.mainSection {
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    height: 60%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+    border: transparent;
+    border-radius: 100%;
+}
+
+.workDetails {
+    display: flex;
+    gap: 5px;
+}
+
+.email {
+    color: #808080;
+}
+
+.followersDetails {
+    display: flex;
+    gap: 4px;
+    color: #808080;
+}

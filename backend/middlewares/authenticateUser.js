@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 
 const authenticateUser = async function (req, res, next) {
     try {
-        const token = req.cookie
+        const token = req.cookie?.token
         console.log(token);
         if (!token) {
             throw new Error("token is absent")

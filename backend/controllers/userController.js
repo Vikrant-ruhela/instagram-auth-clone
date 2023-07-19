@@ -3,8 +3,11 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 function home(req, res) {
-    res.send("ok")
+    res.send("ok");
 }
+
+
+
 
 async function signup(req, res) {
     const { name, username, email, password, bio } = req.body
@@ -33,10 +36,19 @@ async function signup(req, res) {
             bio: bio
         })
 
-        res.status(201).json({
-            success: true,
-            user: user
+        //jwt token gen and send in cookie
+        const token = await jwt.sign({ id: user._id }, process.env.SECRET, {
+            expiresIn: '24d'
         })
+
+
+        res.redirect("/")
+
+        // res.cookie('token', token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true }).status(200).json({
+        //     success: true,
+        //     user: user,
+        //     token: token
+        // })
     } catch (error) {
         res.status(400).json({
             success: false,
@@ -64,15 +76,17 @@ async function login(req, res) {
         }
 
         //jwt token gen and send in cookie
-        const token = await jwt.sign({ id: user._id }, process.env.SECRET)
-
-
-
-        res.cookie('token', token, { httpOnly: true }).status(200).json({
-            success: true,
-            user: user,
-            token: token
+        const token = await jwt.sign({ id: user._id }, process.env.SECRET, {
+            expiresIn: '24d'
         })
+
+        res.redirect("/")
+
+        // res.cookie('token', token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true }).status(200).json({
+        //     success: true,
+        //     user: user,
+        //     token: token
+        // })
 
     } catch (error) {
         res.status(400).json({

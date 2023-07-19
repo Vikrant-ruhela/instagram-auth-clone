@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(userRouter)
 app.use(cors())
 dbConnection()
-app.use(cookieParser)
+app.use(cookieParser())
 
 
 app.listen(process.env.PORT, () => {

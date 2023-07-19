@@ -1,5 +1,6 @@
 const userModel = require('../models/userModel')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 function home(req, res) {
     res.send("ok")
@@ -63,11 +64,14 @@ async function login(req, res) {
         }
 
         //jwt token gen and send in cookie
+        const token = await jwt.sign({ id: user._id }, process.env.SECRET)
 
 
-        res.status(200).json({
+
+        res.cookie('token', token, { httpOnly: true }).status(200).json({
             success: true,
-            user: user
+            user: user,
+            token: token
         })
 
     } catch (error) {

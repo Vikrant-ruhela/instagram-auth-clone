@@ -3,11 +3,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 function home(req, res) {
-    res.send("ok");
+    res.send("token is coming")
 }
-
-
-
 
 async function signup(req, res) {
     const { name, username, email, password, bio } = req.body
@@ -20,9 +17,11 @@ async function signup(req, res) {
 
         //check if user already exists
         const userexists = await userModel.findOne({ email: email })
+        
         const userExists = await userModel.findOne({ username: username })
-        if (!(userExists && userexists)) {
-            throw new Error("user already exists")
+        
+        if (userExists && userexists) {
+            throw new Error("user already exists..")
         }
 
         // save password with hashing 
@@ -35,20 +34,11 @@ async function signup(req, res) {
             password: hashPassword,
             bio: bio
         })
-
-        //jwt token gen and send in cookie
-        const token = await jwt.sign({ id: user._id }, process.env.SECRET, {
-            expiresIn: '24d'
+         await user.save()
+        res.status(201).json({
+            success: true,
+            user: user
         })
-
-
-        res.redirect("/")
-
-        // res.cookie('token', token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true }).status(200).json({
-        //     success: true,
-        //     user: user,
-        //     token: token
-        // })
     } catch (error) {
         res.status(400).json({
             success: false,
@@ -76,17 +66,14 @@ async function login(req, res) {
         }
 
         //jwt token gen and send in cookie
-        const token = await jwt.sign({ id: user._id }, process.env.SECRET, {
-            expiresIn: '24d'
+        const token = await jwt.sign({ id: user._id }, process.env.SECRET)
+
+
+        res.cookie('token', token, { httpOnly: true }).status(200).json({
+            success: true,
+            user: user,
+            token: token
         })
-
-        res.redirect("/")
-
-        // res.cookie('token', token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true }).status(200).json({
-        //     success: true,
-        //     user: user,
-        //     token: token
-        // })
 
     } catch (error) {
         res.status(400).json({

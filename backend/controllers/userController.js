@@ -68,7 +68,6 @@ async function login(req, res) {
         //jwt token gen and send in cookie
         const token = await jwt.sign({ id: user._id }, process.env.SECRET)
 
-
         res.cookie('token', token, { httpOnly: true }).status(200).json({
             success: true,
             user: user,

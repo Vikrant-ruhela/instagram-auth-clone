@@ -20,7 +20,8 @@ body {
 .mainSection {
     background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    height: 50%;
+    padding: 1.4rem 0;
+    border-radius: 30px;
     width: 30%;
     display: flex;
     flex-direction: column;
@@ -48,11 +49,15 @@ label {
 }
 
 
-input[type="submit"] {
+button {
     background-color: #24a0ed;
     color: #fff;
     font-weight: 700;
     cursor: pointer;
+    padding: 6px 12px;
+    border: transparent;
+    border-radius: 12px;
+    margin-top: 7px;
 }
 
 .extraFeatures {

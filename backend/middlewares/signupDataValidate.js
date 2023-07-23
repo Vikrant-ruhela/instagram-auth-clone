@@ -4,7 +4,7 @@ function signupDataValidate(req, res, next) {
         next()
     }
     else {
-        res.status('400').json({
+        res.status(400).json({
             success: false,
             message: "Incomplete data"
         })

@@ -6,6 +6,7 @@ const authenticateUser = require("../middlewares/authenticateUser")
 
 
 
+
 const userRouter = express.Router()
 
 userRouter.get('/data', authenticateUser, home)

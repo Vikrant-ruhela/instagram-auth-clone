@@ -17,9 +17,9 @@ async function signup(req, res) {
 
         //check if user already exists
         const userexists = await userModel.findOne({ email: email })
-        
+
         const userExists = await userModel.findOne({ username: username })
-        
+
         if (userExists && userexists) {
             throw new Error("user already exists..")
         }
@@ -34,9 +34,9 @@ async function signup(req, res) {
             password: hashPassword,
             bio: bio
         })
-         await user.save()
+        await user.save()
         res.status(201).json({
-            success: true,
+            message: success,
             user: user
         })
     } catch (error) {
@@ -77,7 +77,7 @@ async function login(req, res) {
 
     } catch (error) {
         res.status(400).json({
-            success: false,
+            message: success,
             user: error.message
         })
     }

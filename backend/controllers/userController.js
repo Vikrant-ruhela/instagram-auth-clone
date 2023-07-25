@@ -37,11 +37,10 @@ async function signup(req, res) {
         await user.save()
         res.status(201).json({
             message: "success",
-            user: user
+            data: user
         })
     } catch (error) {
         res.status(400).json({
-            success: false,
             message: error.message
         })
     }
@@ -69,9 +68,7 @@ async function login(req, res) {
         const token = await jwt.sign({ id: user._id }, process.env.SECRET)
 
         res.cookie('token', token, { httpOnly: true }).status(200).json({
-            success: true,
-            user: user,
-            token: token,
+            data: user,
             message: 'success'
         })
 

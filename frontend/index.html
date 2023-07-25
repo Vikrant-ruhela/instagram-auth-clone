@@ -5,26 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <!-- this is the page for route "/" -->
-
     <div class="mainSection">
         <img src="./images/profile.png" alt="profilePic">
-        <h1 class="username">@username</h1>
+        <h1 class="username" id="userName">@username</h1>
         <div class="workDetails">
-            <span class="work">work</span>
+            <span class="work" id="userBio">work</span>
             <p>|</p><span class="designation">designation</span>
         </div>
-        <p class="email">email@gmail.com</p>
+        <p class="email" id="userEmail">email@gmail.com</p>
         <div class="followersDetails">
             <p>Followers :</p>
             <span>0</span>
         </div>
 
     </div>
+
+    <script>
+        window.onload = async function () {
+            try {
+                const resp = await fetch("http://127.0.0.1:3000/data", {
+                    method: "GET",
+                    credentials: "include"
+                });
+                if (resp.status !== 200) { window.location.href = "http://localhost:5500/client/login.html" }
+                else {
+                    const { data } = await resp.json();
+                    const userName = document.getElementById("userName")
+                    const userEmail = document.getElementById("userEmail")
+                    const userBio = document.getElementById("userBio")
+                    userName.innerText = data.username;
+                    userEmail.innerText = data.email;
+                    userBio.innerText = data.bio
+                }
+
+            } catch (error) {
+                console.log(error.message)
+            }
+
+
+        }
+    </script>
 </body>
 
 </html>

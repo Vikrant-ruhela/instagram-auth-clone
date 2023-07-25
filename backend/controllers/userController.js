@@ -1,20 +1,20 @@
 const userModel = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose')
 
 async function home(req, res) {
-    const id = req.user;
-
     try {
-        const userData = await UserModel.findOne({ id });
+        console.log("id from home", req.user);
+        const userData = await userModel.findById(req.user).exec();
+        console.log(userData);
         res.status(200).send({
             msg: "Success",
             data: userData
         })
-
     }
     catch (err) {
-        res.status(501).send({ msg: err.message })
+        res.status(400).json({ msg: err.message })
     }
 }
 

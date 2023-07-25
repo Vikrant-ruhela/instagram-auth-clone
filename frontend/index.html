@@ -26,7 +26,8 @@
     </div>
 
     <script>
-        window.onload = async function () {
+
+        async function userData() {
             try {
                 const resp = await fetch("http://127.0.0.1:3000/data", {
                     method: "GET",
@@ -46,9 +47,8 @@
             } catch (error) {
                 console.log(error.message)
             }
-
-
         }
+        userData()
     </script>
 </body>
 

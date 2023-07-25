@@ -2,8 +2,20 @@ const userModel = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-function home(req, res) {
-    res.send("token is coming")
+async function home(req, res) {
+    const id = req.user;
+
+    try {
+        const userData = await UserModel.findOne({ id });
+        res.status(200).send({
+            msg: "Success",
+            data: userData
+        })
+
+    }
+    catch (err) {
+        res.status(501).send({ msg: err.message })
+    }
 }
 
 async function signup(req, res) {

@@ -1,27 +1,22 @@
 const express = require("express")
 const app = require("./app")
-const cors = require('cors')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
+app.use(cors({ origin: "http://127.0.0.1:5501", credentials: true }));
 
 const dbConnection = require("./configs/dbConnection")
 const userRouter = require('./routes/userRouter')
-app.use(cors({
-    origin: '*',
-}));
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
-    res.setHeader('Access-Control-Allow-Methods', 'Content-Type', 'Authorization');
-    next();
-})
+
 
 
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+
 app.use(cookieParser())
-app.use(userRouter)
+
+app.use("/", userRouter)
 dbConnection()
 
 

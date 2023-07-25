@@ -36,7 +36,7 @@
         const username = document.getElementById("username").value
         const password = document.getElementById("password").value
 
-        const resp = await fetch("http://127.0.0.1:3000/login", {
+        const resp = await fetch("http://localhost:3000/login", {
             method: "POST",
             credentials: 'include',
             redirect: 'follow',
@@ -44,9 +44,8 @@
             body: JSON.stringify({ username: username, password: password })
         })
 
-        const data = resp.json()
-
-        console.log("from server", data.message)
+        const data = await resp.json();
+        console.log(data.message)
     }
 </script>
 

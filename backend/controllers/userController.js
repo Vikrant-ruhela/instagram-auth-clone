@@ -36,13 +36,13 @@ async function signup(req, res) {
         })
         await user.save()
         res.status(201).json({
-            message: success,
+            message: "success",
             user: user
         })
     } catch (error) {
         res.status(400).json({
             success: false,
-            user: error.message
+            message: error.message
         })
     }
 
@@ -71,13 +71,13 @@ async function login(req, res) {
         res.cookie('token', token, { httpOnly: true }).status(200).json({
             success: true,
             user: user,
-            token: token
+            token: token,
+            message: 'success'
         })
 
     } catch (error) {
         res.status(400).json({
-            message: success,
-            user: error.message
+            message: error.message
         })
     }
 }

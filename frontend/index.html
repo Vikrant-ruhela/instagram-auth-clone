@@ -14,13 +14,13 @@
         <img src="./images/profile.png" alt="profilePic">
         <h1 class="username" id="userName">@username</h1>
         <div class="workDetails">
-            <span class="work" id="userBio">work</span>
-            <p>|</p><span class="designation">designation</span>
+            <span class="work">working</span>
+            <p>|</p><span class="designation" id="userBio"></span>
         </div>
         <p class="email" id="userEmail">email@gmail.com</p>
         <div class="followersDetails">
             <p>Followers :</p>
-            <span>0</span>
+            <span>1000</span>
         </div>
 
     </div>
@@ -29,13 +29,12 @@
 
         async function userData() {
             try {
-                const resp = await fetch("http://127.0.0.1:3000/data", {
+                const resp = await fetch("http://127.0.0.1:3000/", {
                     method: "GET",
                     credentials: "include"
                 });
 
                 const { data } = await resp.json();
-                console.log(data);
                 const userName = document.getElementById("userName")
                 const userEmail = document.getElementById("userEmail")
                 const userBio = document.getElementById("userBio")

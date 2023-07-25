@@ -5,13 +5,11 @@ const authenticateUser = async function (req, res, next) {
 
         const token = req.cookies.token
 
-        console.log(token);
         if (!token) {
             throw new Error("token is absent")
         }
         const payload = jwt.verify(token, process.env.SECRET)
         req.user = payload.id
-        console.log("id from auth", req.user);
         next()
     } catch (error) {
         res.status(400).json({

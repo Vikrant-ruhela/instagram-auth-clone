@@ -9,7 +9,7 @@ const authenticateUser = require("../middlewares/authenticateUser")
 
 const userRouter = express.Router()
 
-userRouter.get('/data', authenticateUser, home)
+userRouter.get('/', authenticateUser, home)
 userRouter.post("/signup", signupDataValidate, signup)
 userRouter.post("/login", loginDataValidate, login)
 

@@ -5,9 +5,7 @@ const mongoose = require('mongoose')
 
 async function home(req, res) {
     try {
-        console.log("id from home", req.user);
         const userData = await userModel.findById(req.user).exec();
-        console.log(userData);
         res.status(200).send({
             msg: "Success",
             data: userData
@@ -47,9 +45,12 @@ async function signup(req, res) {
             bio: bio
         })
         await user.save()
-        res.status(201).json({
-            message: "success",
-            data: user
+        //jwt token gen and send in cookie
+        const token = await jwt.sign({ id: user._id }, process.env.SECRET)
+
+        res.cookie('token', token, { httpOnly: true }).status(200).json({
+            data: user,
+            message: 'success'
         })
     } catch (error) {
         res.status(400).json({
